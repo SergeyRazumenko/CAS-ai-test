@@ -44,11 +44,19 @@ const RegistrationForm = () => {
   };
 
   return (
-    <main className="container py-4">
-      <section className="mx-auto" style={{ maxWidth: "720px" }}>
+    <main className="container py-4 py-md-5">
+      <section className="mx-auto registration-form-wrapper">
         <StepIndicator step={step} />
-
-        {renderStep()}
+        <div
+          key={step}
+          className="registration-form card border-0 shadow-sm form-card-animation"
+        >
+          <div className="card-body registration-form__body">
+            <form className="registration-form__content" noValidate>
+              {renderStep()}
+            </form>
+          </div>
+        </div>
       </section>
     </main>
   );
