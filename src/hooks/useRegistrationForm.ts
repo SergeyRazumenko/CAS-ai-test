@@ -66,8 +66,13 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     if (step < RegistrationStep.Confirmation) {
       setStep((prev) => (prev + 1) as RegistrationStep);
     } else {
-      // submit logic
       console.log("Form submitted:", formData);
+
+      setFormData(initialFormData);
+      setErrors({});
+      setStep(RegistrationStep.PersonalInfo);
+
+      return;
     }
   }, [step, validateCurrentStep, formData]);
 
