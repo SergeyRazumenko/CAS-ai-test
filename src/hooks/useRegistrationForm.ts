@@ -1,53 +1,127 @@
-import { useCallback, useMemo, useState } from 'react'
-
-import { initialFormData, RegistrationStep, type RegistrationFormData } from '../types/form.types'
+import {
+  useCallback,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import {
+  initialFormData,
+  RegistrationStep,
+  type FormErrors,
+  type RegistrationFormData,
+} from "../types/form.types";
+import {
+  validateStep1,
+  validateStep2,
+  validateStep3,
+} from "../utils/validation";
 
 type UpdateField = <K extends keyof RegistrationFormData>(
   name: K,
   value: RegistrationFormData[K],
-) => void
+) => void;
 
 export type UseRegistrationFormResult = {
-  step: RegistrationStep
-  formData: RegistrationFormData
-  nextStep: () => void
-  prevStep: () => void
-  goToStep: (step: RegistrationStep) => void
-  updateField: UpdateField
-}
+  step: RegistrationStep;
+  formData: RegistrationFormData;
+  errors: FormErrors;
+  setErrors: Dispatch<SetStateAction<FormErrors>>;
+  nextStep: () => void;
+  prevStep: () => void;
+  goToStep: (step: RegistrationStep) => void;
+  validateCurrentStep: () => FormErrors;
+  updateField: UpdateField;
+};
 
 export const useRegistrationForm = (): UseRegistrationFormResult => {
-  const [step, setStep] = useState<RegistrationStep>(RegistrationStep.PersonalInfo)
-  const [formData, setFormData] = useState<RegistrationFormData>(initialFormData)
+  const [step, setStep] = useState<RegistrationStep>(
+    RegistrationStep.PersonalInfo,
+  );
+  const [formData, setFormData] =
+    useState<RegistrationFormData>(initialFormData);
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const validateCurrentStep = useCallback((): FormErrors => {
+    switch (step) {
+      case RegistrationStep.PersonalInfo:
+        return validateStep1(formData);
+      case RegistrationStep.Address:
+        return validateStep2(formData);
+      case RegistrationStep.Confirmation:
+        return validateStep3(formData);
+      default:
+        return {};
+    }
+  }, [formData, step]);
 
   const nextStep = useCallback(() => {
-    setStep((prev) => (prev >= RegistrationStep.Confirmation ? prev : (prev + 1) as RegistrationStep))
-  }, [])
+    const nextErrors = validateCurrentStep();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    if (step < RegistrationStep.Confirmation) {
+      setStep((prev) => (prev + 1) as RegistrationStep);
+    } else {
+      // submit logic
+      console.log("Form submitted:", formData);
+    }
+  }, [step, validateCurrentStep, formData]);
 
   const prevStep = useCallback(() => {
-    setStep((prev) => (prev <= RegistrationStep.PersonalInfo ? prev : (prev - 1) as RegistrationStep))
-  }, [])
+    setStep((prev) =>
+      prev <= RegistrationStep.PersonalInfo
+        ? prev
+        : ((prev - 1) as RegistrationStep),
+    );
+  }, []);
 
   const goToStep = useCallback((target: RegistrationStep) => {
-    setStep(target)
-  }, [])
+    setStep(target);
+  }, []);
 
   const updateField: UpdateField = useCallback((name, value) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }, [])
+    }));
+
+    setErrors((prev) => {
+      if (!prev[name]) {
+        return prev;
+      }
+
+      const nextErrors = { ...prev };
+      delete nextErrors[name];
+      return nextErrors;
+    });
+  }, []);
 
   return useMemo(
     () => ({
       step,
       formData,
+      errors,
+      setErrors,
       nextStep,
       prevStep,
       goToStep,
+      validateCurrentStep,
       updateField,
     }),
-    [formData, goToStep, nextStep, prevStep, step, updateField],
-  )
-}
+    [
+      errors,
+      formData,
+      goToStep,
+      nextStep,
+      prevStep,
+      setErrors,
+      step,
+      updateField,
+      validateCurrentStep,
+    ],
+  );
+};
