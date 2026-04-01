@@ -6,7 +6,7 @@ import { useRegistrationForm } from "../../hooks/useRegistrationForm";
 import { RegistrationStep } from "../../types/form.types";
 
 const RegistrationForm = () => {
-  const { step, formData, nextStep, prevStep, updateField } =
+  const { step, formData, errors, nextStep, prevStep, updateField } =
     useRegistrationForm();
 
   const renderStep = () => {
@@ -15,6 +15,7 @@ const RegistrationForm = () => {
         return (
           <StepPersonalInfo
             formData={formData}
+            errors={errors}
             updateField={updateField}
             nextStep={nextStep}
           />
@@ -23,6 +24,7 @@ const RegistrationForm = () => {
         return (
           <StepAddress
             formData={formData}
+            errors={errors}
             updateField={updateField}
             nextStep={nextStep}
             prevStep={prevStep}
@@ -32,6 +34,7 @@ const RegistrationForm = () => {
         return (
           <StepConfirmation
             formData={formData}
+            errors={errors}
             updateField={updateField}
             nextStep={nextStep}
             prevStep={prevStep}
