@@ -79,21 +79,37 @@ body {
 }
 
 .step-indicator__line {
+  position: relative;
   width: 4rem;
   height: 0.125rem;
   background: $color-line;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $color-success;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+}
+
+.step-indicator__line.active::after {
+  transform: scaleX(1);
 }
 
 .step-indicator__item.active .step-indicator__circle {
-  border-color: $color-primary;
   background: $color-primary;
   color: #fff;
+  transition: all 0.3s ease;
 }
 
 .step-indicator__item.completed .step-indicator__circle {
-  border-color: $color-primary;
-  background: $color-primary;
+  background: $color-success;
   color: #fff;
+  animation: stepPop 0.3s ease;
 }
 
 .step-indicator__line.active {
@@ -102,6 +118,20 @@ body {
 
 .form-card-animation {
   animation: cardFadeSlide 0.5s ease;
+}
+
+@keyframes stepPop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes cardFadeSlide {

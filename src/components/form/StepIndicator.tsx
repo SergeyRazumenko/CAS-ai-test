@@ -9,10 +9,15 @@ const StepIndicator = ({ step }: StepIndicatorProps) => {
 
   return (
     <header className="registration-form-wrapper__step mb-3 mb-md-4">
-      <ol className="step-indicator list-unstyled mb-0" aria-label="Form progress">
+      <ol
+        className="step-indicator list-unstyled mb-0"
+        aria-label="Form progress"
+      >
         {steps.map((item, index) => {
-          const state = step > item ? "completed" : step === item ? "active" : "upcoming";
-          const lineState = step > item ? "active" : "upcoming";
+          const state =
+            step > item ? "completed" : step === item ? "active" : "upcoming";
+
+          const isLineActive = step > item;
 
           return (
             <li
@@ -21,10 +26,15 @@ const StepIndicator = ({ step }: StepIndicatorProps) => {
               aria-current={step === item ? "step" : undefined}
             >
               <div className="step-indicator__circle" aria-hidden="true">
-                {item}
+                {state === "completed" ? "✓" : item}
               </div>
+
               {index < steps.length - 1 && (
-                <div className={`step-indicator__line ${lineState}`} />
+                <div
+                  className={`step-indicator__line ${
+                    isLineActive ? "active" : ""
+                  }`}
+                />
               )}
             </li>
           );
