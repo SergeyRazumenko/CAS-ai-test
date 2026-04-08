@@ -1,9 +1,10 @@
-import StepAddress from "./steps/StepAddress";
-import StepConfirmation from "./steps/StepConfirmation";
-import StepPersonalInfo from "./steps/StepPersonalInfo";
-import StepIndicator from "./StepIndicator";
+import StepAddress from "../steps/StepAddress/StepAddress";
+import StepConfirmation from "../steps/StepConfirmation/StepConfirmation";
+import StepPersonalInfo from "../steps/StepPersonalInfo/StepPersonalInfo";
+import StepIndicator from "../StepIndicator/StepIndicator";
 import { useRegistrationForm } from "../../hooks/useRegistrationForm";
-import { RegistrationStep } from "../../types/form.types";
+import { RegistrationStep } from "../../model/types";
+import "./RegistrationForm.scss";
 
 const RegistrationForm = () => {
   const { step, formData, errors, nextStep, prevStep, updateField } =

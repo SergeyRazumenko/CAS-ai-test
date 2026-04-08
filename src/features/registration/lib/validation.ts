@@ -1,4 +1,7 @@
-import type { FormErrors, RegistrationFormData } from "../types/form.types";
+import type {
+  FormErrors,
+  RegistrationFormData,
+} from "../../registration/model/types";
 
 const isEmpty = (value: string): boolean => value.trim().length === 0;
 

@@ -1,7 +1,4 @@
-import type {
-  FormErrors,
-  RegistrationFormData,
-} from "../../../types/form.types";
+import type { FormErrors, RegistrationFormData } from "../../..//model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
 
 type StepPersonalInfoProps = {

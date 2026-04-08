@@ -10,12 +10,12 @@ import {
   RegistrationStep,
   type FormErrors,
   type RegistrationFormData,
-} from "../types/form.types";
+} from "../../registration/model/types";
 import {
   validateStep1,
   validateStep2,
   validateStep3,
-} from "../utils/validation";
+} from "../../registration/lib/validation";
 
 type UpdateField = <K extends keyof RegistrationFormData>(
   name: K,

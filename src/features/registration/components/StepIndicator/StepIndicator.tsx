@@ -1,4 +1,5 @@
-import type { RegistrationStep } from "../../types/form.types";
+import type { RegistrationStep } from "../../model/types";
+import "./StepIndicator.scss";
 
 type StepIndicatorProps = {
   step: RegistrationStep;
