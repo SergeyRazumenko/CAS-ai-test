@@ -3,3 +3,9 @@ body {
   min-height: 100vh;
   background-color: $color-background;
 }
+
+legend.visually-hidden {
+  visibility: hidden;
+  opacity: 0;
+  font-size: 0;
+}

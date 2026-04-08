@@ -11,7 +11,9 @@ const isValidEmail = (value: string): boolean => {
   return emailRegex.test(value);
 };
 
-export const validateStep1 = (data: RegistrationFormData): FormErrors => {
+export const validatePersonalInfo = (
+  data: RegistrationFormData,
+): FormErrors => {
   const errors: FormErrors = {};
 
   if (isEmpty(data.firstName)) {
@@ -32,7 +34,7 @@ export const validateStep1 = (data: RegistrationFormData): FormErrors => {
   return errors;
 };
 
-export const validateStep2 = (data: RegistrationFormData): FormErrors => {
+export const validateAddress = (data: RegistrationFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (isEmpty(data.country)) {
@@ -45,7 +47,9 @@ export const validateStep2 = (data: RegistrationFormData): FormErrors => {
   return errors;
 };
 
-export const validateStep3 = (data: RegistrationFormData): FormErrors => {
+export const validateConfirmation = (
+  data: RegistrationFormData,
+): FormErrors => {
   const errors: FormErrors = {};
 
   if (!data.agreeToTerms) {
