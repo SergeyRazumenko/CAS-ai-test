@@ -1,6 +1,8 @@
 import type { FormErrors, RegistrationFormData } from "../../../model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
 import { FORM_LABELS } from "../../../model/constants/labels";
+import Checkbox from "../../../../../shared/ui/Checkbox/Checkbox";
+import Button from "../../../../../shared/ui/Button/Button";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;
@@ -24,72 +26,49 @@ const StepConfirmation = ({
     >
       <h2 className="h5 mb-1">Confirmation</h2>
       <p className="text-muted mb-4">Step 3 of 3</p>
+
       <fieldset>
         <legend id="step-confirmation-title" className="visually-hidden">
           Confirmation
         </legend>
 
-        <div className="form-check mb-3 registration-form__field">
-          <input
-            id="agreeToTerms"
-            type="checkbox"
-            className={`form-check-input ${errors.agreeToTerms ? "is-invalid" : ""}`}
-            required
-            aria-invalid={Boolean(errors.agreeToTerms)}
-            aria-describedby={
-              errors.agreeToTerms ? "agreeToTerms-error" : undefined
-            }
-            checked={formData.agreeToTerms}
-            onChange={(event) =>
-              updateField("agreeToTerms", event.target.checked)
-            }
-          />
-          <label className="form-check-label" htmlFor="agreeToTerms">
-            {FORM_LABELS.agreeToTerms}{" "}
-            <a href="#" className="registration-form__link">
-              Terms and Conditions
-            </a>{" "}
-            *
-          </label>
-          {errors.agreeToTerms && (
-            <div id="agreeToTerms-error" className="invalid-feedback d-block">
-              {errors.agreeToTerms}
-            </div>
-          )}
-        </div>
+        <Checkbox
+          id="agreeToTerms"
+          label={
+            <>
+              {FORM_LABELS.agreeToTerms}{" "}
+              <a href="#" className="registration-form__link">
+                Terms and Conditions
+              </a>
+            </>
+          }
+          checked={formData.agreeToTerms}
+          error={errors.agreeToTerms}
+          required
+          onChange={(value) => updateField("agreeToTerms", value)}
+        />
 
-        <div className="form-check mb-4 registration-form__field">
-          <input
-            id="subscribeToNewsletter"
-            type="checkbox"
-            className="form-check-input"
-            checked={formData.subscribeToNewsletter}
-            onChange={(event) =>
-              updateField("subscribeToNewsletter", event.target.checked)
-            }
-          />
-          <label className="form-check-label" htmlFor="subscribeToNewsletter">
-            {FORM_LABELS.subscribeToNewsletter}
-          </label>
-        </div>
+        <Checkbox
+          id="subscribeToNewsletter"
+          label={FORM_LABELS.subscribeToNewsletter}
+          checked={formData.subscribeToNewsletter}
+          onChange={(value) => updateField("subscribeToNewsletter", value)}
+        />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={prevStep}
-          >
+          <Button variant="secondary" onClick={prevStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>
             Back
-          </button>
-          <button type="button" className="btn btn-success" onClick={nextStep}>
+          </Button>
+
+          <Button variant="success" onClick={nextStep}>
             Submit
             <span className="ms-2" aria-hidden="true">
               ✓
             </span>
-          </button>
+          </Button>
         </div>
       </fieldset>
     </section>

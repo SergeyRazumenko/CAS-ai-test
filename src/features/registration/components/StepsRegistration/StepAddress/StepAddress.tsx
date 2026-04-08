@@ -1,6 +1,9 @@
 import type { FormErrors, RegistrationFormData } from "../../../model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
 import { FORM_LABELS } from "../../../model/constants/labels";
+import Select from "../../../../../shared/ui/Select/Select";
+import Input from "../../../../../shared/ui/Input/Input";
+import Button from "../../../../../shared/ui/Button/Button";
 
 type StepAddressProps = {
   formData: RegistrationFormData;
@@ -24,103 +27,67 @@ const StepAddress = ({
     >
       <h2 className="h5 mb-1">Address</h2>
       <p className="text-muted mb-4">Step 2 of 3</p>
+
       <fieldset>
         <legend id="step-address-title" className="visually-hidden">
           Address
         </legend>
 
-        <div className="mb-3 registration-form__field">
-          <label className="form-label" htmlFor="country">
-            {FORM_LABELS.country} *
-          </label>
-          <select
-            id="country"
-            className={`form-select ${errors.country ? "is-invalid" : ""}`}
-            required
-            aria-invalid={Boolean(errors.country)}
-            aria-describedby={errors.country ? "country-error" : undefined}
-            value={formData.country}
-            onChange={(event) => updateField("country", event.target.value)}
-          >
-            <option value="">Select country...</option>
-            <option value="United States">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="Ukraine">Ukraine</option>
-            <option value="Germany">Germany</option>
-          </select>
-          {errors.country && (
-            <div id="country-error" className="invalid-feedback d-block">
-              {errors.country}
-            </div>
-          )}
-        </div>
+        <Select
+          id="country"
+          label={FORM_LABELS.country}
+          value={formData.country}
+          error={errors.country}
+          required
+          options={[
+            { label: "United States", value: "United States" },
+            { label: "Canada", value: "Canada" },
+            { label: "Ukraine", value: "Ukraine" },
+            { label: "Germany", value: "Germany" },
+          ]}
+          onChange={(value) => updateField("country", value)}
+        />
 
-        <div className="mb-3 registration-form__field">
-          <label className="form-label" htmlFor="city">
-            {FORM_LABELS.city} *
-          </label>
-          <input
-            id="city"
-            className={`form-control ${errors.city ? "is-invalid" : ""}`}
-            required
-            aria-invalid={Boolean(errors.city)}
-            aria-describedby={errors.city ? "city-error" : undefined}
-            placeholder="Odesa"
-            value={formData.city}
-            onChange={(event) => updateField("city", event.target.value)}
-          />
-          {errors.city && (
-            <div id="city-error" className="invalid-feedback d-block">
-              {errors.city}
-            </div>
-          )}
-        </div>
+        <Input
+          id="city"
+          label={FORM_LABELS.city}
+          value={formData.city}
+          error={errors.city}
+          required
+          placeholder="Odesa"
+          onChange={(value) => updateField("city", value)}
+        />
 
-        <div className="mb-3 registration-form__field">
-          <label className="form-label" htmlFor="streetAddress">
-            {FORM_LABELS.streetAddress}
-          </label>
-          <input
-            id="streetAddress"
-            className="form-control"
-            placeholder="123 Main St, Apt 4"
-            value={formData.streetAddress}
-            onChange={(event) =>
-              updateField("streetAddress", event.target.value)
-            }
-          />
-        </div>
+        <Input
+          id="streetAddress"
+          label={FORM_LABELS.streetAddress}
+          value={formData.streetAddress}
+          placeholder="123 Main St, Apt 4"
+          onChange={(value) => updateField("streetAddress", value)}
+        />
 
-        <div className="mb-4 registration-form__field">
-          <label className="form-label" htmlFor="postalCode">
-            {FORM_LABELS.postalCode}
-          </label>
-          <input
-            id="postalCode"
-            className="form-control"
-            placeholder="65000"
-            value={formData.postalCode}
-            onChange={(event) => updateField("postalCode", event.target.value)}
-          />
-        </div>
+        <Input
+          id="postalCode"
+          label={FORM_LABELS.postalCode}
+          value={formData.postalCode}
+          placeholder="65000"
+          onChange={(value) => updateField("postalCode", value)}
+        />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={prevStep}
-          >
+          <Button variant="secondary" onClick={prevStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>
             Back
-          </button>
-          <button type="button" className="btn btn-primary" onClick={nextStep}>
+          </Button>
+
+          <Button variant="primary" onClick={nextStep}>
             Next
             <span className="ms-2" aria-hidden="true">
               →
             </span>
-          </button>
+          </Button>
         </div>
       </fieldset>
     </section>
