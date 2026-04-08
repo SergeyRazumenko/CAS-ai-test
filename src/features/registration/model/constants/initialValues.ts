@@ -1,4 +1,4 @@
-import type { RegistrationFormData } from "../types";
+import type { RegistrationFormData } from "@/features/registration/model/types";
 
 export const initialFormData: RegistrationFormData = {
   firstName: "",

@@ -1,8 +1,11 @@
-import type { FormErrors, RegistrationFormData } from "../../../model/types";
-import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
-import { FORM_LABELS } from "../../../model/constants/labels";
-import Input from "../../../../../shared/ui/Input/Input";
-import Button from "../../../../../shared/ui/Button/Button";
+import type {
+  FormErrors,
+  RegistrationFormData,
+} from "@/features/registration/model/types";
+import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
+import { FORM_LABELS } from "@/features/registration/model/constants/labels";
+import Input from "@/shared/ui/Input/Input";
+import Button from "@/shared/ui/Button/Button";
 
 type StepPersonalInfoProps = {
   formData: RegistrationFormData;

@@ -1,8 +1,8 @@
 import type {
   FormErrors,
   RegistrationFormData,
-} from "../../registration/model/types";
-import { VALIDATION_MESSAGES } from "../model/constants/validationMessages";
+} from "@/features/registration/model/types";
+import { VALIDATION_MESSAGES } from "@/features/registration/model/constants/validationMessages";
 
 const isEmpty = (value: string): boolean => value.trim().length === 0;
 

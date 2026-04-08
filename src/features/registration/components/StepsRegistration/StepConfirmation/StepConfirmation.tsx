@@ -1,8 +1,11 @@
-import type { FormErrors, RegistrationFormData } from "../../../model/types";
-import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
-import { FORM_LABELS } from "../../../model/constants/labels";
-import Checkbox from "../../../../../shared/ui/Checkbox/Checkbox";
-import Button from "../../../../../shared/ui/Button/Button";
+import type {
+  FormErrors,
+  RegistrationFormData,
+} from "@/features/registration/model/types";
+import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
+import { FORM_LABELS } from "@/features/registration/model/constants/labels";
+import Checkbox from "@/shared/ui/Checkbox/Checkbox";
+import Button from "@/shared/ui/Button/Button";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;
@@ -16,7 +19,6 @@ const StepConfirmation = ({
   formData,
   errors,
   updateField,
-  nextStep,
   prevStep,
 }: StepConfirmationProps) => {
   return (
@@ -63,7 +65,7 @@ const StepConfirmation = ({
             Back
           </Button>
 
-          <Button variant="success" onClick={nextStep}>
+          <Button variant="success" type="submit">
             Submit
             <span className="ms-2" aria-hidden="true">
               ✓
