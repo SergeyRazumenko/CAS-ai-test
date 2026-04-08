@@ -1,5 +1,6 @@
-import type { FormErrors, RegistrationFormData } from "../../..//model/types";
+import type { FormErrors, RegistrationFormData } from "../../../model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
+import { FORM_LABELS } from "../../../model/constants/labels";
 
 type StepPersonalInfoProps = {
   formData: RegistrationFormData;
@@ -28,7 +29,7 @@ const StepPersonalInfo = ({
         <div className="row">
           <div className="col-md-6 mb-3 registration-form__field">
             <label className="form-label" htmlFor="firstName">
-              First name *
+              {FORM_LABELS.firstName} *
             </label>
             <input
               id="firstName"
@@ -51,7 +52,7 @@ const StepPersonalInfo = ({
 
           <div className="col-md-6 mb-3 registration-form__field">
             <label className="form-label" htmlFor="lastName">
-              Last name *
+              {FORM_LABELS.lastName} *
             </label>
             <input
               id="lastName"
@@ -73,7 +74,7 @@ const StepPersonalInfo = ({
 
         <div className="mb-3 registration-form__field">
           <label className="form-label" htmlFor="email">
-            Email *
+            {FORM_LABELS.email} *
           </label>
           <input
             id="email"
@@ -95,7 +96,7 @@ const StepPersonalInfo = ({
 
         <div className="mb-3 registration-form__field">
           <label className="form-label" htmlFor="phone">
-            Phone *
+            {FORM_LABELS.phone} *
           </label>
           <input
             id="phone"
@@ -117,7 +118,7 @@ const StepPersonalInfo = ({
 
         <div className="mb-4 registration-form__field">
           <label className="form-label" htmlFor="dateOfBirth">
-            Date of birth
+            {FORM_LABELS.dateOfBirth}
           </label>
           <input
             id="dateOfBirth"

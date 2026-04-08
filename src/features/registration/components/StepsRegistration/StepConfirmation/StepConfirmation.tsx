@@ -1,5 +1,6 @@
 import type { FormErrors, RegistrationFormData } from "../../../model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
+import { FORM_LABELS } from "../../../model/constants/labels";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;
@@ -44,7 +45,7 @@ const StepConfirmation = ({
             }
           />
           <label className="form-check-label" htmlFor="agreeToTerms">
-            I agree to the{" "}
+            {FORM_LABELS.agreeToTerms}{" "}
             <a href="#" className="registration-form__link">
               Terms and Conditions
             </a>{" "}
@@ -68,7 +69,7 @@ const StepConfirmation = ({
             }
           />
           <label className="form-check-label" htmlFor="subscribeToNewsletter">
-            Subscribe to newsletter
+            {FORM_LABELS.subscribeToNewsletter}
           </label>
         </div>
 

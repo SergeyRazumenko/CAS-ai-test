@@ -6,11 +6,11 @@ import {
   type SetStateAction,
 } from "react";
 import {
-  initialFormData,
-  RegistrationStep,
   type FormErrors,
   type RegistrationFormData,
 } from "../../registration/model/types";
+import { RegistrationStep } from "../model/enums";
+import { initialFormData } from "../model/constants/initialValues";
 import {
   validateStep1,
   validateStep2,

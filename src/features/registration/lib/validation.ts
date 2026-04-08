@@ -2,6 +2,7 @@ import type {
   FormErrors,
   RegistrationFormData,
 } from "../../registration/model/types";
+import { VALIDATION_MESSAGES } from "../model/constants/validationMessages";
 
 const isEmpty = (value: string): boolean => value.trim().length === 0;
 
@@ -14,18 +15,18 @@ export const validateStep1 = (data: RegistrationFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (isEmpty(data.firstName)) {
-    errors.firstName = "This field is required";
+    errors.firstName = VALIDATION_MESSAGES.required;
   }
   if (isEmpty(data.lastName)) {
-    errors.lastName = "This field is required";
+    errors.lastName = VALIDATION_MESSAGES.required;
   }
   if (isEmpty(data.email)) {
-    errors.email = "This field is required";
+    errors.email = VALIDATION_MESSAGES.required;
   } else if (!isValidEmail(data.email)) {
-    errors.email = "Invalid email format";
+    errors.email = VALIDATION_MESSAGES.email;
   }
   if (isEmpty(data.phone)) {
-    errors.phone = "This field is required";
+    errors.phone = VALIDATION_MESSAGES.required;
   }
 
   return errors;
@@ -35,10 +36,10 @@ export const validateStep2 = (data: RegistrationFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (isEmpty(data.country)) {
-    errors.country = "This field is required";
+    errors.country = VALIDATION_MESSAGES.required;
   }
   if (isEmpty(data.city)) {
-    errors.city = "This field is required";
+    errors.city = VALIDATION_MESSAGES.required;
   }
 
   return errors;
@@ -48,7 +49,7 @@ export const validateStep3 = (data: RegistrationFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (!data.agreeToTerms) {
-    errors.agreeToTerms = "You must agree to the terms";
+    errors.agreeToTerms = VALIDATION_MESSAGES.agreeToTerms;
   }
 
   return errors;

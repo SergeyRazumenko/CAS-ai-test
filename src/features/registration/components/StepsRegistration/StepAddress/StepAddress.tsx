@@ -1,5 +1,6 @@
 import type { FormErrors, RegistrationFormData } from "../../../model/types";
 import type { UseRegistrationFormResult } from "../../../hooks/useRegistrationForm";
+import { FORM_LABELS } from "../../../model/constants/labels";
 
 type StepAddressProps = {
   formData: RegistrationFormData;
@@ -30,7 +31,7 @@ const StepAddress = ({
 
         <div className="mb-3 registration-form__field">
           <label className="form-label" htmlFor="country">
-            Country *
+            {FORM_LABELS.country} *
           </label>
           <select
             id="country"
@@ -56,7 +57,7 @@ const StepAddress = ({
 
         <div className="mb-3 registration-form__field">
           <label className="form-label" htmlFor="city">
-            City *
+            {FORM_LABELS.city} *
           </label>
           <input
             id="city"
@@ -77,7 +78,7 @@ const StepAddress = ({
 
         <div className="mb-3 registration-form__field">
           <label className="form-label" htmlFor="streetAddress">
-            Street address
+            {FORM_LABELS.streetAddress}
           </label>
           <input
             id="streetAddress"
@@ -92,7 +93,7 @@ const StepAddress = ({
 
         <div className="mb-4 registration-form__field">
           <label className="form-label" htmlFor="postalCode">
-            ZIP / Postal code
+            {FORM_LABELS.postalCode}
           </label>
           <input
             id="postalCode"

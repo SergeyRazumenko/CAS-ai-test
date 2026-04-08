@@ -1,4 +1,4 @@
-import type { RegistrationStep } from "../../model/types";
+import { RegistrationStep } from "../../model/enums";
 import "./StepIndicator.scss";
 
 type StepIndicatorProps = {
