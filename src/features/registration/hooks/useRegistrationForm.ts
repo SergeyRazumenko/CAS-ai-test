@@ -6,16 +6,16 @@ import {
   type SetStateAction,
 } from "react";
 import {
-  initialFormData,
-  RegistrationStep,
   type FormErrors,
   type RegistrationFormData,
-} from "../types/form.types";
+} from "@/features/registration/model/types";
+import { RegistrationStep } from "@/features/registration/model/enums";
+import { initialFormData } from "@/features/registration/model/constants/initialValues";
 import {
-  validateStep1,
-  validateStep2,
-  validateStep3,
-} from "../utils/validation";
+  validatePersonalInfo,
+  validateAddress,
+  validateConfirmation,
+} from "@/features/registration/lib/validation";
 
 type UpdateField = <K extends keyof RegistrationFormData>(
   name: K,
@@ -45,11 +45,11 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
   const validateCurrentStep = useCallback((): FormErrors => {
     switch (step) {
       case RegistrationStep.PersonalInfo:
-        return validateStep1(formData);
+        return validatePersonalInfo(formData);
       case RegistrationStep.Address:
-        return validateStep2(formData);
+        return validateAddress(formData);
       case RegistrationStep.Confirmation:
-        return validateStep3(formData);
+        return validateConfirmation(formData);
       default:
         return {};
     }

@@ -1,4 +1,5 @@
-import type { RegistrationStep } from "../../types/form.types";
+import { RegistrationStep } from "@/features/registration/model/enums";
+import "./StepIndicator.scss";
 
 type StepIndicatorProps = {
   step: RegistrationStep;

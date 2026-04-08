@@ -1,9 +1,10 @@
-import StepAddress from "./steps/StepAddress";
-import StepConfirmation from "./steps/StepConfirmation";
-import StepPersonalInfo from "./steps/StepPersonalInfo";
-import StepIndicator from "./StepIndicator";
-import { useRegistrationForm } from "../../hooks/useRegistrationForm";
-import { RegistrationStep } from "../../types/form.types";
+import StepAddress from "@/features/registration/components/StepsRegistration/StepAddress/StepAddress";
+import StepConfirmation from "@/features/registration/components/StepsRegistration/StepConfirmation/StepConfirmation";
+import StepPersonalInfo from "@/features/registration/components/StepsRegistration/StepPersonalInfo/StepPersonalInfo";
+import StepIndicator from "@/features/registration/components/StepIndicator/StepIndicator";
+import { useRegistrationForm } from "@/features/registration/hooks/useRegistrationForm";
+import { RegistrationStep } from "@/features/registration/model/enums";
+import "./RegistrationForm.scss";
 
 const RegistrationForm = () => {
   const { step, formData, errors, nextStep, prevStep, updateField } =
@@ -52,7 +53,17 @@ const RegistrationForm = () => {
           className="registration-form card border-0 shadow-sm form-card-animation"
         >
           <div className="card-body registration-form__body">
-            <form className="registration-form__content" noValidate>
+            <form
+              className="registration-form__content"
+              noValidate
+              onSubmit={(e) => {
+                e.preventDefault();
+
+                if (step === RegistrationStep.Confirmation) {
+                  nextStep();
+                }
+              }}
+            >
               {renderStep()}
             </form>
           </div>

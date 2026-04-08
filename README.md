@@ -5,7 +5,7 @@ The project demonstrates form state management, step-based validation, and clean
 
 ## Live Demo
 
-[https://multi-step-registration-form-lemon.vercel.app/]
+[(https://multi-step-registration-form-lemon.vercel.app/)]
 
 ## Tech Stack
 
