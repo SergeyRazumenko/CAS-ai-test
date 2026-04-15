@@ -8,14 +8,14 @@ import {
 import {
   type FormErrors,
   type RegistrationFormData,
-} from "@/features/registration/model/types";
-import { RegistrationStep } from "@/features/registration/model/enums";
-import { initialFormData } from "@/features/registration/model/constants/initialValues";
+} from "@/features/registration/model/types/form.types";
+import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
+import { initialFormData } from "@/features/registration/config/initialValues";
 import {
   validatePersonalInfo,
   validateAddress,
   validateConfirmation,
-} from "@/features/registration/lib/validation";
+} from "@/features/registration/validation/registrationValidation";
 
 type UpdateField = <K extends keyof RegistrationFormData>(
   name: K,

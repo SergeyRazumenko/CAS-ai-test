@@ -1,11 +1,11 @@
 import type {
   FormErrors,
   RegistrationFormData,
-} from "@/features/registration/model/types";
+} from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/model/constants/labels";
-import Checkbox from "@/shared/ui/Checkbox/Checkbox";
-import Button from "@/shared/ui/Button/Button";
+import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import Checkbox from "@/shared/ui/Checkbox";
+import Button from "@/shared/ui/Button";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;

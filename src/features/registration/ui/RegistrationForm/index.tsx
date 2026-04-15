@@ -1,9 +1,9 @@
-import StepAddress from "@/features/registration/components/StepsRegistration/StepAddress/StepAddress";
-import StepConfirmation from "@/features/registration/components/StepsRegistration/StepConfirmation/StepConfirmation";
-import StepPersonalInfo from "@/features/registration/components/StepsRegistration/StepPersonalInfo/StepPersonalInfo";
-import StepIndicator from "@/features/registration/components/StepIndicator/StepIndicator";
+import StepAddress from "@/features/registration/ui/StepsRegistration/StepAddress";
+import StepConfirmation from "@/features/registration/ui/StepsRegistration/StepConfirmation";
+import StepPersonalInfo from "@/features/registration/ui/StepsRegistration/StepPersonalInfo";
+import StepIndicator from "@/features/registration/ui/StepIndicator";
 import { useRegistrationForm } from "@/features/registration/hooks/useRegistrationForm";
-import { RegistrationStep } from "@/features/registration/model/enums";
+import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
 import "./RegistrationForm.scss";
 
 const RegistrationForm = () => {

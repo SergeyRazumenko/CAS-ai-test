@@ -1,4 +1,4 @@
-import RegistrationForm from "../features/registration/components/RegistrationForm/RegistrationForm";
+import RegistrationForm from "../features/registration/ui/RegistrationForm";
 
 const App = () => {
   return <RegistrationForm />;
