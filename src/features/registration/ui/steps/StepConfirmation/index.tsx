@@ -1,31 +1,31 @@
 import type {
   FormErrors,
   RegistrationFormData,
-} from "@/features/registration/model/types";
+} from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/model/constants/labels";
-import Checkbox from "@/shared/ui/Checkbox/Checkbox";
-import Button from "@/shared/ui/Button/Button";
+import { FORM_LABELS } from "@/features/registration/config";
+import FormStep from "../FormStep";
+import { Checkbox } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;
   errors: FormErrors;
-  updateField: UseRegistrationFormResult["updateField"];
-  nextStep: UseRegistrationFormResult["nextStep"];
-  prevStep: UseRegistrationFormResult["prevStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
+  goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
+  isSubmitting: UseRegistrationFormResult["isSubmitting"];
 };
 
 const StepConfirmation = ({
   formData,
   errors,
-  updateField,
-  prevStep,
+  setFieldValue,
+  goToPreviousStep,
+  isSubmitting,
 }: StepConfirmationProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-confirmation-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Confirmation</h2>
       <p className="text-muted mb-4">Step 3 of 3</p>
 
@@ -47,33 +47,34 @@ const StepConfirmation = ({
           checked={formData.agreeToTerms}
           error={errors.agreeToTerms}
           required
-          onChange={(value) => updateField("agreeToTerms", value)}
+          onChange={(value) => setFieldValue("agreeToTerms", value)}
         />
 
         <Checkbox
           id="subscribeToNewsletter"
           label={FORM_LABELS.subscribeToNewsletter}
           checked={formData.subscribeToNewsletter}
-          onChange={(value) => updateField("subscribeToNewsletter", value)}
+          onChange={(value) => setFieldValue("subscribeToNewsletter", value)}
         />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <Button variant="secondary" onClick={prevStep}>
+          <Button variant="secondary" onClick={goToPreviousStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>
             Back
           </Button>
 
-          <Button variant="success" type="submit">
-            Submit
-            <span className="ms-2" aria-hidden="true">
-              ✓
-            </span>
+          <Button
+            type="submit"
+            variant="success"
+            disabled={isSubmitting || !formData.agreeToTerms}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 

@@ -1,30 +1,28 @@
 import type {
   FormErrors,
   RegistrationFormData,
-} from "@/features/registration/model/types";
+} from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/model/constants/labels";
-import Input from "@/shared/ui/Input/Input";
-import Button from "@/shared/ui/Button/Button";
+import { FORM_LABELS } from "@/features/registration/config";
+import FormStep from "../FormStep";
+import { Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 type StepPersonalInfoProps = {
   formData: RegistrationFormData;
   errors: FormErrors;
-  updateField: UseRegistrationFormResult["updateField"];
-  nextStep: UseRegistrationFormResult["nextStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
 };
 
 const StepPersonalInfo = ({
   formData,
   errors,
-  updateField,
-  nextStep,
+  setFieldValue,
+  goToNextStep,
 }: StepPersonalInfoProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-personal-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Personal info</h2>
       <p className="text-muted mb-4">Step 1 of 3</p>
 
@@ -42,7 +40,7 @@ const StepPersonalInfo = ({
               error={errors.firstName}
               required
               placeholder="John"
-              onChange={(value) => updateField("firstName", value)}
+              onChange={(value) => setFieldValue("firstName", value)}
             />
           </div>
 
@@ -54,7 +52,7 @@ const StepPersonalInfo = ({
               error={errors.lastName}
               required
               placeholder="Doe"
-              onChange={(value) => updateField("lastName", value)}
+              onChange={(value) => setFieldValue("lastName", value)}
             />
           </div>
         </div>
@@ -67,7 +65,7 @@ const StepPersonalInfo = ({
           error={errors.email}
           required
           placeholder="john@example.com"
-          onChange={(value) => updateField("email", value)}
+          onChange={(value) => setFieldValue("email", value)}
         />
 
         <Input
@@ -78,7 +76,7 @@ const StepPersonalInfo = ({
           error={errors.phone}
           required
           placeholder="+380 (XX) XXX-XX-XX"
-          onChange={(value) => updateField("phone", value)}
+          onChange={(value) => setFieldValue("phone", value)}
         />
 
         <Input
@@ -86,11 +84,11 @@ const StepPersonalInfo = ({
           type="date"
           label={FORM_LABELS.dateOfBirth}
           value={formData.dateOfBirth}
-          onChange={(value) => updateField("dateOfBirth", value)}
+          onChange={(value) => setFieldValue("dateOfBirth", value)}
         />
 
         <div className="d-flex justify-content-end registration-form__actions">
-          <Button variant="primary" onClick={nextStep}>
+          <Button variant="primary" onClick={goToNextStep}>
             Next
             <span className="ms-2" aria-hidden="true">
               →
@@ -98,7 +96,7 @@ const StepPersonalInfo = ({
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 

@@ -3,6 +3,7 @@ type ButtonProps = {
   onClick?: () => void;
   type?: "button" | "submit";
   variant?: "primary" | "secondary" | "success";
+  disabled?: boolean;
 };
 
 const Button = ({
@@ -10,9 +11,15 @@ const Button = ({
   onClick,
   type = "button",
   variant = "primary",
+  disabled,
 }: ButtonProps) => {
   return (
-    <button type={type} onClick={onClick} className={`btn btn-${variant}`}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`btn btn-${variant}`}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

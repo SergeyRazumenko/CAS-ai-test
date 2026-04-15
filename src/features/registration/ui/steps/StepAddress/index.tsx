@@ -1,33 +1,31 @@
 import type {
   FormErrors,
   RegistrationFormData,
-} from "@/features/registration/model/types";
+} from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/model/constants/labels";
-import Select from "@/shared/ui/Select/Select";
-import Input from "@/shared/ui/Input/Input";
-import Button from "@/shared/ui/Button/Button";
+import { FORM_LABELS } from "@/features/registration/config";
+import FormStep from "../FormStep";
+import { Select } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 type StepAddressProps = {
   formData: RegistrationFormData;
   errors: FormErrors;
-  updateField: UseRegistrationFormResult["updateField"];
-  nextStep: UseRegistrationFormResult["nextStep"];
-  prevStep: UseRegistrationFormResult["prevStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
+  goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
 };
 
 const StepAddress = ({
   formData,
   errors,
-  updateField,
-  nextStep,
-  prevStep,
+  setFieldValue,
+  goToNextStep,
+  goToPreviousStep,
 }: StepAddressProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-address-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Address</h2>
       <p className="text-muted mb-4">Step 2 of 3</p>
 
@@ -48,7 +46,7 @@ const StepAddress = ({
             { label: "Ukraine", value: "Ukraine" },
             { label: "Germany", value: "Germany" },
           ]}
-          onChange={(value) => updateField("country", value)}
+          onChange={(value) => setFieldValue("country", value)}
         />
 
         <Input
@@ -58,7 +56,7 @@ const StepAddress = ({
           error={errors.city}
           required
           placeholder="Odesa"
-          onChange={(value) => updateField("city", value)}
+          onChange={(value) => setFieldValue("city", value)}
         />
 
         <Input
@@ -66,7 +64,7 @@ const StepAddress = ({
           label={FORM_LABELS.streetAddress}
           value={formData.streetAddress}
           placeholder="123 Main St, Apt 4"
-          onChange={(value) => updateField("streetAddress", value)}
+          onChange={(value) => setFieldValue("streetAddress", value)}
         />
 
         <Input
@@ -74,18 +72,18 @@ const StepAddress = ({
           label={FORM_LABELS.postalCode}
           value={formData.postalCode}
           placeholder="65000"
-          onChange={(value) => updateField("postalCode", value)}
+          onChange={(value) => setFieldValue("postalCode", value)}
         />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <Button variant="secondary" onClick={prevStep}>
+          <Button variant="secondary" onClick={goToPreviousStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>
             Back
           </Button>
 
-          <Button variant="primary" onClick={nextStep}>
+          <Button variant="primary" onClick={goToNextStep}>
             Next
             <span className="ms-2" aria-hidden="true">
               →
@@ -93,7 +91,7 @@ const StepAddress = ({
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 

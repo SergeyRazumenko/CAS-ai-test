@@ -8,14 +8,14 @@ import {
 import {
   type FormErrors,
   type RegistrationFormData,
-} from "@/features/registration/model/types";
-import { RegistrationStep } from "@/features/registration/model/enums";
-import { initialFormData } from "@/features/registration/model/constants/initialValues";
+} from "@/features/registration/model/types/form.types";
+import { RegistrationStep } from "@/features/registration/model/types";
+import { initialFormData } from "@/features/registration/config/initialValues";
 import {
   validatePersonalInfo,
   validateAddress,
   validateConfirmation,
-} from "@/features/registration/lib/validation";
+} from "@/features/registration/validation/registrationValidation";
 
 type UpdateField = <K extends keyof RegistrationFormData>(
   name: K,
@@ -27,11 +27,13 @@ export type UseRegistrationFormResult = {
   formData: RegistrationFormData;
   errors: FormErrors;
   setErrors: Dispatch<SetStateAction<FormErrors>>;
-  nextStep: () => void;
-  prevStep: () => void;
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
   goToStep: (step: RegistrationStep) => void;
   validateCurrentStep: () => FormErrors;
-  updateField: UpdateField;
+  setFieldValue: UpdateField;
+  handleSubmit: () => void;
+  isSubmitting: boolean;
 };
 
 export const useRegistrationForm = (): UseRegistrationFormResult => {
@@ -41,6 +43,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
   const [formData, setFormData] =
     useState<RegistrationFormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateCurrentStep = useCallback((): FormErrors => {
     switch (step) {
@@ -55,28 +58,18 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     }
   }, [formData, step]);
 
-  const nextStep = useCallback(() => {
+  const goToNextStep = useCallback(() => {
     const nextErrors = validateCurrentStep();
     setErrors(nextErrors);
 
-    if (Object.keys(nextErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(nextErrors).length > 0) return;
 
     if (step < RegistrationStep.Confirmation) {
       setStep((prev) => (prev + 1) as RegistrationStep);
-    } else {
-      console.log("Form submitted:", formData);
-
-      setFormData(initialFormData);
-      setErrors({});
-      setStep(RegistrationStep.PersonalInfo);
-
-      return;
     }
-  }, [step, validateCurrentStep, formData]);
+  }, [step, validateCurrentStep]);
 
-  const prevStep = useCallback(() => {
+  const goToPreviousStep = useCallback(() => {
     setStep((prev) =>
       prev <= RegistrationStep.PersonalInfo
         ? prev
@@ -88,7 +81,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     setStep(target);
   }, []);
 
-  const updateField: UpdateField = useCallback((name, value) => {
+  const setFieldValue: UpdateField = useCallback((name, value) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -105,28 +98,51 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     });
   }, []);
 
+  const handleSubmit = useCallback(async () => {
+    const nextErrors = validateCurrentStep();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setIsSubmitting(true);
+
+    await new Promise((res) => setTimeout(res, 1000));
+
+    console.log("Form submitted:", formData);
+
+    setFormData(initialFormData);
+    setErrors({});
+    setStep(RegistrationStep.PersonalInfo);
+
+    setIsSubmitting(false);
+  }, [formData, validateCurrentStep]);
+
   return useMemo(
     () => ({
       step,
       formData,
       errors,
       setErrors,
-      nextStep,
-      prevStep,
+      goToNextStep,
+      goToPreviousStep,
       goToStep,
       validateCurrentStep,
-      updateField,
+      setFieldValue,
+      handleSubmit,
+      isSubmitting,
     }),
     [
       errors,
       formData,
       goToStep,
-      nextStep,
-      prevStep,
+      goToNextStep,
+      goToPreviousStep,
       setErrors,
       step,
-      updateField,
+      setFieldValue,
       validateCurrentStep,
+      handleSubmit,
+      isSubmitting,
     ],
   );
 };

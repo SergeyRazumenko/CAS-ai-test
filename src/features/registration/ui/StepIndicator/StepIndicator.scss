@@ -1,0 +1,83 @@
+@use "@/app/styles/variables" as *;
+@use "@/app/styles/mixins" as *;
+
+.step-indicator {
+  @include flex-center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  max-width: 24rem;
+
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &--active {
+      .step-indicator__circle {
+        background: $color-primary;
+        color: #fff;
+        transition: all 0.3s ease;
+      }
+    }
+
+    &--completed {
+      .step-indicator__circle {
+        background: $color-success;
+        color: #fff;
+        animation: step-pop 0.3s ease;
+      }
+    }
+  }
+
+  &__circle {
+    @include flex-center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: $color-gray-light;
+    color: $color-gray;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__line {
+    position: relative;
+    width: 4rem;
+    height: 0.125rem;
+    background: $color-line;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: $color-success;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    &--active {
+      background: $color-primary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+@keyframes step-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

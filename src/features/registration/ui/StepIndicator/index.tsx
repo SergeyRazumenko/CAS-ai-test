@@ -1,4 +1,4 @@
-import { RegistrationStep } from "@/features/registration/model/enums";
+import { RegistrationStep } from "@/features/registration/model/types";
 import "./StepIndicator.scss";
 
 type StepIndicatorProps = {
@@ -15,26 +15,28 @@ const StepIndicator = ({ step }: StepIndicatorProps) => {
         aria-label="Form progress"
       >
         {steps.map((item, index) => {
-          const state =
-            step > item ? "completed" : step === item ? "active" : "upcoming";
-
+          const isCompleted = step > item;
+          const isActive = step === item;
           const isLineActive = step > item;
 
           return (
             <li
               key={item}
-              className={`step-indicator__item ${state}`}
-              aria-current={step === item ? "step" : undefined}
+              className={`step-indicator__item 
+                ${isActive ? "step-indicator__item--active" : ""} 
+                ${isCompleted ? "step-indicator__item--completed" : ""}
+              `}
+              aria-current={isActive ? "step" : undefined}
             >
               <div className="step-indicator__circle" aria-hidden="true">
-                {state === "completed" ? "✓" : item}
+                {isCompleted ? "✓" : item}
               </div>
 
               {index < steps.length - 1 && (
                 <div
-                  className={`step-indicator__line ${
-                    isLineActive ? "active" : ""
-                  }`}
+                  className={`step-indicator__line 
+                    ${isLineActive ? "step-indicator__line--active" : ""}
+                  `}
                 />
               )}
             </li>
