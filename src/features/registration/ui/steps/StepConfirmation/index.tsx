@@ -3,10 +3,10 @@ import type {
   RegistrationFormData,
 } from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import { FORM_LABELS } from "@/features/registration/config";
 import FormStep from "../FormStep";
-import Checkbox from "@/shared/ui/Checkbox";
-import Button from "@/shared/ui/Button";
+import { Checkbox } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 type StepConfirmationProps = {
   formData: RegistrationFormData;

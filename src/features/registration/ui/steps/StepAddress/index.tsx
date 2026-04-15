@@ -3,11 +3,11 @@ import type {
   RegistrationFormData,
 } from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
-import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import { FORM_LABELS } from "@/features/registration/config";
 import FormStep from "../FormStep";
-import Select from "@/shared/ui/Select";
-import Input from "@/shared/ui/Input";
-import Button from "@/shared/ui/Button";
+import { Select } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 type StepAddressProps = {
   formData: RegistrationFormData;

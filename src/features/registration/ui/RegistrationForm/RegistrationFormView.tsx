@@ -4,7 +4,7 @@ import {
   StepConfirmation,
 } from "@/features/registration/ui/steps";
 import StepIndicator from "@/features/registration/ui/StepIndicator";
-import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
+import { RegistrationStep } from "@/features/registration/model/types";
 import type {
   FormErrors,
   RegistrationFormData,

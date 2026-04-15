@@ -1,4 +1,4 @@
-import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
+import { RegistrationStep } from "@/features/registration/model/types";
 import "./StepIndicator.scss";
 
 type StepIndicatorProps = {

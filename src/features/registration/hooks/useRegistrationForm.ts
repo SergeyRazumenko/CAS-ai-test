@@ -9,7 +9,7 @@ import {
   type FormErrors,
   type RegistrationFormData,
 } from "@/features/registration/model/types/form.types";
-import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
+import { RegistrationStep } from "@/features/registration/model/types";
 import { initialFormData } from "@/features/registration/config/initialValues";
 import {
   validatePersonalInfo,
