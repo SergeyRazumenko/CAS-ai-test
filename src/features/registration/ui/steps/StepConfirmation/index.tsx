@@ -14,6 +14,7 @@ type StepConfirmationProps = {
   setFieldValue: UseRegistrationFormResult["setFieldValue"];
   goToNextStep: UseRegistrationFormResult["goToNextStep"];
   goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
+  isSubmitting: UseRegistrationFormResult["isSubmitting"];
 };
 
 const StepConfirmation = ({
@@ -21,6 +22,7 @@ const StepConfirmation = ({
   errors,
   setFieldValue,
   goToPreviousStep,
+  isSubmitting,
 }: StepConfirmationProps) => {
   return (
     <FormStep>
@@ -63,11 +65,12 @@ const StepConfirmation = ({
             Back
           </Button>
 
-          <Button variant="success" type="submit">
-            Submit
-            <span className="ms-2" aria-hidden="true">
-              ✓
-            </span>
+          <Button
+            type="submit"
+            variant="success"
+            disabled={isSubmitting || !formData.agreeToTerms}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </fieldset>

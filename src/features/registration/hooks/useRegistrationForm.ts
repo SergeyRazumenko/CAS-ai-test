@@ -32,6 +32,8 @@ export type UseRegistrationFormResult = {
   goToStep: (step: RegistrationStep) => void;
   validateCurrentStep: () => FormErrors;
   setFieldValue: UpdateField;
+  handleSubmit: () => void;
+  isSubmitting: boolean;
 };
 
 export const useRegistrationForm = (): UseRegistrationFormResult => {
@@ -41,6 +43,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
   const [formData, setFormData] =
     useState<RegistrationFormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateCurrentStep = useCallback((): FormErrors => {
     switch (step) {
@@ -59,22 +62,12 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     const nextErrors = validateCurrentStep();
     setErrors(nextErrors);
 
-    if (Object.keys(nextErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(nextErrors).length > 0) return;
 
     if (step < RegistrationStep.Confirmation) {
       setStep((prev) => (prev + 1) as RegistrationStep);
-    } else {
-      console.log("Form submitted:", formData);
-
-      setFormData(initialFormData);
-      setErrors({});
-      setStep(RegistrationStep.PersonalInfo);
-
-      return;
     }
-  }, [step, validateCurrentStep, formData]);
+  }, [step, validateCurrentStep]);
 
   const goToPreviousStep = useCallback(() => {
     setStep((prev) =>
@@ -105,6 +98,25 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     });
   }, []);
 
+  const handleSubmit = useCallback(async () => {
+    const nextErrors = validateCurrentStep();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setIsSubmitting(true);
+
+    await new Promise((res) => setTimeout(res, 1000));
+
+    console.log("Form submitted:", formData);
+
+    setFormData(initialFormData);
+    setErrors({});
+    setStep(RegistrationStep.PersonalInfo);
+
+    setIsSubmitting(false);
+  }, [formData, validateCurrentStep]);
+
   return useMemo(
     () => ({
       step,
@@ -116,6 +128,8 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
       goToStep,
       validateCurrentStep,
       setFieldValue,
+      handleSubmit,
+      isSubmitting,
     }),
     [
       errors,
@@ -127,6 +141,8 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
       step,
       setFieldValue,
       validateCurrentStep,
+      handleSubmit,
+      isSubmitting,
     ],
   );
 };

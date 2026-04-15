@@ -19,6 +19,8 @@ type RegistrationFormViewProps = {
   goToNextStep: UseRegistrationFormResult["goToNextStep"];
   goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
   setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  handleSubmit: UseRegistrationFormResult["handleSubmit"];
+  isSubmitting: UseRegistrationFormResult["isSubmitting"];
 };
 
 const RegistrationFormView = ({
@@ -28,6 +30,8 @@ const RegistrationFormView = ({
   goToNextStep,
   goToPreviousStep,
   setFieldValue,
+  handleSubmit,
+  isSubmitting,
 }: RegistrationFormViewProps) => {
   const stepsMap = {
     [RegistrationStep.PersonalInfo]: (
@@ -54,6 +58,7 @@ const RegistrationFormView = ({
         setFieldValue={setFieldValue}
         goToNextStep={goToNextStep}
         goToPreviousStep={goToPreviousStep}
+        isSubmitting={isSubmitting}
       />
     ),
   };
@@ -72,10 +77,7 @@ const RegistrationFormView = ({
               noValidate
               onSubmit={(e) => {
                 e.preventDefault();
-
-                if (step === RegistrationStep.Confirmation) {
-                  goToPreviousStep();
-                }
+                handleSubmit();
               }}
             >
               {stepsMap[step]}

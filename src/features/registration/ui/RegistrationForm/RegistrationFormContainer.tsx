@@ -9,6 +9,8 @@ const RegistrationFormContainer = () => {
     goToNextStep,
     goToPreviousStep,
     setFieldValue,
+    handleSubmit,
+    isSubmitting,
   } = useRegistrationForm();
 
   return (
@@ -19,6 +21,8 @@ const RegistrationFormContainer = () => {
       goToNextStep={goToNextStep}
       goToPreviousStep={goToPreviousStep}
       setFieldValue={setFieldValue}
+      handleSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
     />
   );
 };
