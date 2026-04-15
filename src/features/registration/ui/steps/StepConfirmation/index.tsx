@@ -11,16 +11,16 @@ import Button from "@/shared/ui/Button";
 type StepConfirmationProps = {
   formData: RegistrationFormData;
   errors: FormErrors;
-  updateField: UseRegistrationFormResult["updateField"];
-  nextStep: UseRegistrationFormResult["nextStep"];
-  prevStep: UseRegistrationFormResult["prevStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
+  goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
 };
 
 const StepConfirmation = ({
   formData,
   errors,
-  updateField,
-  prevStep,
+  setFieldValue,
+  goToPreviousStep,
 }: StepConfirmationProps) => {
   return (
     <FormStep>
@@ -45,18 +45,18 @@ const StepConfirmation = ({
           checked={formData.agreeToTerms}
           error={errors.agreeToTerms}
           required
-          onChange={(value) => updateField("agreeToTerms", value)}
+          onChange={(value) => setFieldValue("agreeToTerms", value)}
         />
 
         <Checkbox
           id="subscribeToNewsletter"
           label={FORM_LABELS.subscribeToNewsletter}
           checked={formData.subscribeToNewsletter}
-          onChange={(value) => updateField("subscribeToNewsletter", value)}
+          onChange={(value) => setFieldValue("subscribeToNewsletter", value)}
         />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <Button variant="secondary" onClick={prevStep}>
+          <Button variant="secondary" onClick={goToPreviousStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>

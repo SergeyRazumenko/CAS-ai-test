@@ -12,48 +12,48 @@ import type {
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
 import "./RegistrationForm.scss";
 
-type Props = {
+type RegistrationFormViewProps = {
   step: RegistrationStep;
   formData: RegistrationFormData;
   errors: FormErrors;
-  nextStep: UseRegistrationFormResult["nextStep"];
-  prevStep: UseRegistrationFormResult["prevStep"];
-  updateField: UseRegistrationFormResult["updateField"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
+  goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
 };
 
 const RegistrationFormView = ({
   step,
   formData,
   errors,
-  nextStep,
-  prevStep,
-  updateField,
-}: Props) => {
+  goToNextStep,
+  goToPreviousStep,
+  setFieldValue,
+}: RegistrationFormViewProps) => {
   const stepsMap = {
     [RegistrationStep.PersonalInfo]: (
       <StepPersonalInfo
         formData={formData}
         errors={errors}
-        updateField={updateField}
-        nextStep={nextStep}
+        setFieldValue={setFieldValue}
+        goToNextStep={goToNextStep}
       />
     ),
     [RegistrationStep.Address]: (
       <StepAddress
         formData={formData}
         errors={errors}
-        updateField={updateField}
-        nextStep={nextStep}
-        prevStep={prevStep}
+        setFieldValue={setFieldValue}
+        goToNextStep={goToNextStep}
+        goToPreviousStep={goToPreviousStep}
       />
     ),
     [RegistrationStep.Confirmation]: (
       <StepConfirmation
         formData={formData}
         errors={errors}
-        updateField={updateField}
-        nextStep={nextStep}
-        prevStep={prevStep}
+        setFieldValue={setFieldValue}
+        goToNextStep={goToNextStep}
+        goToPreviousStep={goToPreviousStep}
       />
     ),
   };
@@ -74,7 +74,7 @@ const RegistrationFormView = ({
                 e.preventDefault();
 
                 if (step === RegistrationStep.Confirmation) {
-                  nextStep();
+                  goToPreviousStep();
                 }
               }}
             >

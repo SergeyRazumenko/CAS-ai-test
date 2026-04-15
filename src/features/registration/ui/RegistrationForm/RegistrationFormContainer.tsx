@@ -2,17 +2,23 @@ import { useRegistrationForm } from "@/features/registration/hooks/useRegistrati
 import RegistrationFormView from "./RegistrationFormView";
 
 const RegistrationFormContainer = () => {
-  const { step, formData, errors, nextStep, prevStep, updateField } =
-    useRegistrationForm();
+  const {
+    step,
+    formData,
+    errors,
+    goToNextStep,
+    goToPreviousStep,
+    setFieldValue,
+  } = useRegistrationForm();
 
   return (
     <RegistrationFormView
       step={step}
       formData={formData}
       errors={errors}
-      nextStep={nextStep}
-      prevStep={prevStep}
-      updateField={updateField}
+      goToNextStep={goToNextStep}
+      goToPreviousStep={goToPreviousStep}
+      setFieldValue={setFieldValue}
     />
   );
 };

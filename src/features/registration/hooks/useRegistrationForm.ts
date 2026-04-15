@@ -27,11 +27,11 @@ export type UseRegistrationFormResult = {
   formData: RegistrationFormData;
   errors: FormErrors;
   setErrors: Dispatch<SetStateAction<FormErrors>>;
-  nextStep: () => void;
-  prevStep: () => void;
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
   goToStep: (step: RegistrationStep) => void;
   validateCurrentStep: () => FormErrors;
-  updateField: UpdateField;
+  setFieldValue: UpdateField;
 };
 
 export const useRegistrationForm = (): UseRegistrationFormResult => {
@@ -55,7 +55,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     }
   }, [formData, step]);
 
-  const nextStep = useCallback(() => {
+  const goToNextStep = useCallback(() => {
     const nextErrors = validateCurrentStep();
     setErrors(nextErrors);
 
@@ -76,7 +76,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     }
   }, [step, validateCurrentStep, formData]);
 
-  const prevStep = useCallback(() => {
+  const goToPreviousStep = useCallback(() => {
     setStep((prev) =>
       prev <= RegistrationStep.PersonalInfo
         ? prev
@@ -88,7 +88,7 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
     setStep(target);
   }, []);
 
-  const updateField: UpdateField = useCallback((name, value) => {
+  const setFieldValue: UpdateField = useCallback((name, value) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -111,21 +111,21 @@ export const useRegistrationForm = (): UseRegistrationFormResult => {
       formData,
       errors,
       setErrors,
-      nextStep,
-      prevStep,
+      goToNextStep,
+      goToPreviousStep,
       goToStep,
       validateCurrentStep,
-      updateField,
+      setFieldValue,
     }),
     [
       errors,
       formData,
       goToStep,
-      nextStep,
-      prevStep,
+      goToNextStep,
+      goToPreviousStep,
       setErrors,
       step,
-      updateField,
+      setFieldValue,
       validateCurrentStep,
     ],
   );

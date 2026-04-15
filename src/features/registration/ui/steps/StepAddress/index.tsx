@@ -12,17 +12,17 @@ import Button from "@/shared/ui/Button";
 type StepAddressProps = {
   formData: RegistrationFormData;
   errors: FormErrors;
-  updateField: UseRegistrationFormResult["updateField"];
-  nextStep: UseRegistrationFormResult["nextStep"];
-  prevStep: UseRegistrationFormResult["prevStep"];
+  setFieldValue: UseRegistrationFormResult["setFieldValue"];
+  goToNextStep: UseRegistrationFormResult["goToNextStep"];
+  goToPreviousStep: UseRegistrationFormResult["goToPreviousStep"];
 };
 
 const StepAddress = ({
   formData,
   errors,
-  updateField,
-  nextStep,
-  prevStep,
+  setFieldValue,
+  goToNextStep,
+  goToPreviousStep,
 }: StepAddressProps) => {
   return (
     <FormStep>
@@ -46,7 +46,7 @@ const StepAddress = ({
             { label: "Ukraine", value: "Ukraine" },
             { label: "Germany", value: "Germany" },
           ]}
-          onChange={(value) => updateField("country", value)}
+          onChange={(value) => setFieldValue("country", value)}
         />
 
         <Input
@@ -56,7 +56,7 @@ const StepAddress = ({
           error={errors.city}
           required
           placeholder="Odesa"
-          onChange={(value) => updateField("city", value)}
+          onChange={(value) => setFieldValue("city", value)}
         />
 
         <Input
@@ -64,7 +64,7 @@ const StepAddress = ({
           label={FORM_LABELS.streetAddress}
           value={formData.streetAddress}
           placeholder="123 Main St, Apt 4"
-          onChange={(value) => updateField("streetAddress", value)}
+          onChange={(value) => setFieldValue("streetAddress", value)}
         />
 
         <Input
@@ -72,18 +72,18 @@ const StepAddress = ({
           label={FORM_LABELS.postalCode}
           value={formData.postalCode}
           placeholder="65000"
-          onChange={(value) => updateField("postalCode", value)}
+          onChange={(value) => setFieldValue("postalCode", value)}
         />
 
         <div className="d-flex justify-content-between registration-form__actions">
-          <Button variant="secondary" onClick={prevStep}>
+          <Button variant="secondary" onClick={goToPreviousStep}>
             <span className="me-2" aria-hidden="true">
               ←
             </span>
             Back
           </Button>
 
-          <Button variant="primary" onClick={nextStep}>
+          <Button variant="primary" onClick={goToNextStep}>
             Next
             <span className="ms-2" aria-hidden="true">
               →
