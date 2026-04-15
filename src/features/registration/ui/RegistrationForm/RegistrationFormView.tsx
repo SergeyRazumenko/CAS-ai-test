@@ -64,7 +64,7 @@ const RegistrationFormView = ({
         <StepIndicator step={step} />
         <div
           key={step}
-          className="registration-form card border-0 shadow-sm form-card-animation"
+          className="registration-form card border-0 shadow-sm registration-form--animated"
         >
           <div className="card-body registration-form__body">
             <form
