@@ -4,6 +4,7 @@ import type {
 } from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
 import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import FormStep from "../FormStep";
 import Select from "@/shared/ui/Select";
 import Input from "@/shared/ui/Input";
 import Button from "@/shared/ui/Button";
@@ -24,10 +25,7 @@ const StepAddress = ({
   prevStep,
 }: StepAddressProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-address-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Address</h2>
       <p className="text-muted mb-4">Step 2 of 3</p>
 
@@ -93,7 +91,7 @@ const StepAddress = ({
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 

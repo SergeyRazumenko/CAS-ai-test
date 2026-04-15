@@ -1,7 +1,9 @@
-import StepAddress from "@/features/registration/ui/RegistrationSteps/StepAddress";
-import StepConfirmation from "@/features/registration/ui/RegistrationSteps/StepConfirmation";
-import StepPersonalInfo from "@/features/registration/ui/RegistrationSteps/StepPersonalInfo";
-import StepIndicator from "@/features/registration/ui/RegistrationStepsIndicator";
+import {
+  StepPersonalInfo,
+  StepAddress,
+  StepConfirmation,
+} from "@/features/registration/ui/steps";
+import StepIndicator from "@/features/registration/ui/StepIndicator";
 import { RegistrationStep } from "@/features/registration/model/types/registrationStep.types";
 import type {
   FormErrors,
@@ -27,40 +29,33 @@ const RegistrationFormView = ({
   prevStep,
   updateField,
 }: Props) => {
-  const renderStep = () => {
-    switch (step) {
-      case RegistrationStep.PersonalInfo:
-        return (
-          <StepPersonalInfo
-            formData={formData}
-            errors={errors}
-            updateField={updateField}
-            nextStep={nextStep}
-          />
-        );
-
-      case RegistrationStep.Address:
-        return (
-          <StepAddress
-            formData={formData}
-            errors={errors}
-            updateField={updateField}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-
-      case RegistrationStep.Confirmation:
-        return (
-          <StepConfirmation
-            formData={formData}
-            errors={errors}
-            updateField={updateField}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-    }
+  const stepsMap = {
+    [RegistrationStep.PersonalInfo]: (
+      <StepPersonalInfo
+        formData={formData}
+        errors={errors}
+        updateField={updateField}
+        nextStep={nextStep}
+      />
+    ),
+    [RegistrationStep.Address]: (
+      <StepAddress
+        formData={formData}
+        errors={errors}
+        updateField={updateField}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />
+    ),
+    [RegistrationStep.Confirmation]: (
+      <StepConfirmation
+        formData={formData}
+        errors={errors}
+        updateField={updateField}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />
+    ),
   };
 
   return (
@@ -83,7 +78,7 @@ const RegistrationFormView = ({
                 }
               }}
             >
-              {renderStep()}
+              {stepsMap[step]}
             </form>
           </div>
         </div>

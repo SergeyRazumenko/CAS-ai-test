@@ -4,6 +4,7 @@ import type {
 } from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
 import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import FormStep from "../FormStep";
 import Input from "@/shared/ui/Input";
 import Button from "@/shared/ui/Button";
 
@@ -21,10 +22,7 @@ const StepPersonalInfo = ({
   nextStep,
 }: StepPersonalInfoProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-personal-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Personal info</h2>
       <p className="text-muted mb-4">Step 1 of 3</p>
 
@@ -98,7 +96,7 @@ const StepPersonalInfo = ({
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 

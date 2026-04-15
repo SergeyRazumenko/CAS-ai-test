@@ -4,6 +4,7 @@ import type {
 } from "@/features/registration/model/types/form.types";
 import type { UseRegistrationFormResult } from "@/features/registration/hooks/useRegistrationForm";
 import { FORM_LABELS } from "@/features/registration/config/formLabels";
+import FormStep from "../FormStep";
 import Checkbox from "@/shared/ui/Checkbox";
 import Button from "@/shared/ui/Button";
 
@@ -22,10 +23,7 @@ const StepConfirmation = ({
   prevStep,
 }: StepConfirmationProps) => {
   return (
-    <section
-      className="registration-form__section"
-      aria-labelledby="step-confirmation-title"
-    >
+    <FormStep>
       <h2 className="h5 mb-1">Confirmation</h2>
       <p className="text-muted mb-4">Step 3 of 3</p>
 
@@ -73,7 +71,7 @@ const StepConfirmation = ({
           </Button>
         </div>
       </fieldset>
-    </section>
+    </FormStep>
   );
 };
 
